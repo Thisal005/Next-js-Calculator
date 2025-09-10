@@ -1,11 +1,30 @@
 'use client';
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
 
 export default function Home() {
   const [results, setResults] = useState("");
   const [expression, setExpression] = useState("");
 
+
+  useEffect(() => {
+    const handleKeyDown = (event : KeyboardEvent) => {
+      const {key} = event;
+      if(
+        (key >= "0" && key <= "9") ||
+        ["/", "*", "-", "+", "."].includes(key)
+      ){
+        handleButtonClick(key);
+      }else if (key === "Enter" || key === "="){
+        handleButtonClick("=");
+      }else if (key.toLocaleLowerCase() == "c" || key === "Backspace"){
+        handleButtonClick("C");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [expression]);
 
   const handleButtonClick = (value: string) => {
     if (value === "=") {
