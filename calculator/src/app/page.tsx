@@ -26,27 +26,40 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [expression]);
 
-  const handleButtonClick = (value: string) => {
+ const handleButtonClick = (value: string) => {
     if (value === "=") {
-      try{
-        setResults(eval(expression).toString());
+      try {
+        let exp = expression
+          .replace(/%/g, "/100")
+          .replace(/√([0-9.]+)/g, "Math.sqrt($1)")
+          .replace(/(\d+(\.\d+)?)\^(\d+(\.\d+)?)/g, "Math.pow($1,$3)");
+        // Allow sqrt at start: √9 or √(9+16)
+        exp = exp.replace(/√\(/g, "Math.sqrt(");
+        setResults(eval(exp).toString());
       } catch (error) {
         setResults("Error");
       }
     } else if (value === "C") {
       setExpression("");
       setResults("");
+    } else if (value === "√") {
+      setExpression((prev) => prev + "√");
+    } else if (value === "^") {
+      setExpression((prev) => prev + "^");
+    } else if (value === "%") {
+      setExpression((prev) => prev + "%");
     } else {
       setExpression((prev) => prev + value);
     }
-  }
+  };
+
 
   const buttons = [
     "7", "8", "9", "/",
     "4", "5", "6", "*",
     "1", "2", "3", "-",
     "0", ".", "C", "+",
-    "="
+    "%", "√", "^", "="
   ];
 
   return (
@@ -73,9 +86,10 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-4 gap-3">
           {buttons.map((btn) => {
-            const isOperator = ["/", "*", "-", "+"].includes(btn);
+            const isOperator = ["/", "*", "-", "+" , "%", "^"].includes(btn);
             const isEquals = btn === "=";
             const isClear = btn === "C";
+            const isSqrt = btn == "√";
             return (
               <button
                 key={btn}
@@ -84,11 +98,24 @@ export default function Home() {
                   focus:outline-none focus:ring-2 focus:ring-indigo-300
                   active:scale-95
                   ${isOperator ? "bg-indigo-100 text-indigo-700 hover:bg-indigo-200" : "bg-gray-100 text-gray-800 hover:bg-gray-200"}
-                  ${isEquals ? "col-span-4 bg-indigo-600 text-white hover:bg-indigo-700 mt-2 text-2xl py-3" : ""}
+                  ${isEquals ? " bg-indigo-600 text-white hover:bg-indigo-700 mt-2 text-2xl py-3" : ""}
                   ${isClear ? "bg-red-100 text-red-500 hover:bg-red-200" : ""}
+                  ${isSqrt ? "bg-green-100 text-green-700 hover:bg-green-200" : ""}
                 `}
                 onClick={() => handleButtonClick(btn)}
-                aria-label={btn === "C" ? "Clear" : btn === "=" ? "Equals" : btn}
+                aria-label={
+                  btn === "C"
+                    ? "Clear"
+                    : btn === "="
+                    ? "Equals"
+                    : btn === "√"
+                    ? "Square Root"
+                    : btn === "^"
+                    ? "Power"
+                    : btn === "%"
+                    ? "Percent"
+                    : btn
+                }
               >
                 {btn}
               </button>
