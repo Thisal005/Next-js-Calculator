@@ -83,13 +83,19 @@ return (
     
     {/* Main container with responsive layout */}
     <div className={`flex flex-col lg:flex-row gap-6 items-start justify-center transition-all duration-500 ease-in-out ${
-      showHistory ? 'w-full max-w-6xl' : 'w-full max-w-md'
+      showHistory ? 'w-full max-w-4xl' : 'w-full max-w-md'
     }`}>
       
       {/* Calculator Section */}
       <div className={`bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/20 transition-all duration-500 ease-in-out ${
         showHistory ? 'w-full lg:w-2/3' : 'w-full max-w-md'
       }`}>
+
+        <div className="flex justify-center mb-3">
+          <span className="inline-block px-30 py-2 bg-white/10 backdrop-blur-sm rounded-xl shadow-sm text-xs sm:text-sm text-purple-500 border border-purple-200/40  ">
+            Calculator
+          </span>
+        </div>
         
         {/* Display Section */}
         <div className="flex flex-col gap-3 mb-6">
@@ -121,7 +127,7 @@ return (
             onClick={toggleHistory}
             className={`flex-1 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-200 shadow-sm ${
               showHistory 
-                ? 'bg-purple-600 text-white hover:bg-purple-700 shadow-purple-200' 
+                ? 'bg-purple-700 text-white hover:bg-purple-600 shadow-purple-200' 
                 : 'bg-purple-100 text-purple-600 hover:bg-purple-200 border border-purple-200'
             }`}
             aria-label="Toggle History"
@@ -173,7 +179,7 @@ return (
                   p-3 sm:p-4 rounded-2xl text-lg sm:text-xl font-semibold shadow-sm transition-all duration-150
                   focus:outline-none focus:ring-3 focus:ring-purple-300/40
                   active:scale-95 hover:shadow-md
-                  ${isOperator ? "bg-gradient-to-b from-purple-100 to-purple-50 text-purple-700 hover:from-purple-200 hover:to-purple-100 border border-purple-200/60" : "bg-gradient-to-b from-purple-50 to-purple-25 text-purple-800 hover:from-purple-100 hover:to-purple-75 border border-purple-200/60"}
+                  ${isOperator ? "bg-gradient-to-b from-purple-200 to-purple-100 text-purple-700 hover:from-purple-200 hover:to-purple-100 border border-purple-200/60" : "bg-gradient-to-b from-purple-50 to-purple-25 text-purple-800 hover:from-purple-100 hover:to-purple-75 border border-purple-200/60"}
                   ${isEquals ? "bg-purple-600 text-white hover:from-purple-700 hover:to-purple-800 text-xl sm:text-2xl py-3 sm:py-4 shadow-purple-200" : ""}
                   ${isClear ? "bg-gradient-to-b from-red-100 to-red-50 text-red-600 hover:from-red-200 hover:to-red-100 border border-red-200/60" : ""}
                   ${isSqrt ? "bg-gradient-to-b from-violet-100 to-violet-50 text-violet-700 hover:from-violet-200 hover:to-violet-100 border border-violet-200/60" : ""}
@@ -199,12 +205,7 @@ return (
           })}
         </div>
         
-        {/* Footer */}
-        <div className="mt-6 text-center">
-          <span className="inline-block px-3 py-2 bg-white/60 backdrop-blur-sm rounded-xl shadow-sm text-xs sm:text-sm text-purple-500 border border-white/40">
-            Created by Thisal Thiranjith
-          </span>
-        </div>
+       
       </div>
 
       {/* History Section */}
