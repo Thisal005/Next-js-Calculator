@@ -92,7 +92,7 @@ return (
       }`}>
 
         <div className="flex justify-center mb-3">
-          <span className="inline-block px-30 py-2 bg-white/10 backdrop-blur-sm rounded-xl shadow-sm text-xs sm:text-sm text-purple-500 border border-purple-200/40  ">
+          <span className="inline-block px-30 py-2 bg-black/10 backdrop-blur-sm rounded-xl shadow-sm text-xs sm:text-sm text-purple-500 border border-purple-200/40  ">
             Calculator
           </span>
         </div>
