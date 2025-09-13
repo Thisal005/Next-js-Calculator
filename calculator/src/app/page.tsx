@@ -209,7 +209,7 @@ return (
       </div>
 
       {/* History Section */}
-      <div className={`transition-all duration-500 ease-in-out ${
+      <div className={`transition-all duration-400 ease-in-out ${
         showHistory 
           ? 'opacity-100 transform translate-x-0 w-full lg:w-1/3' 
           : 'opacity-0 transform translate-x-full w-0 overflow-hidden'
